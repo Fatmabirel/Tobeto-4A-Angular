@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 export interface ListGroupItem {
-  id: string;
+  id:string;
   label: string;
 }
 export type ListGroupItems = ListGroupItem[];

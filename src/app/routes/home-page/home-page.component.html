@@ -7,12 +7,12 @@
   <div class="row">
     <aside class="col-3">
       <h1 style="font-size: 1.5rem">Categories</h1>
-      <app-category-list-group></app-category-list-group>
+      <app-category-list-group (changeSelect)="onChangeCategorySelect($event)"></app-category-list-group>
     </aside>
 
     <section class="col">
       <h1 style="font-size: 1.5rem">Products</h1>
-      <app-product-cart-list></app-product-cart-list>
+      <app-product-cart-list [filterByCategoryId]="selectedCategoryId"></app-product-cart-list>
     </section>
   </div>
 </app-basic-layout>

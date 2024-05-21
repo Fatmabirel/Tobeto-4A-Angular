@@ -1,5 +1,10 @@
-<ul>
-    @for (item of productList; track $index) {
-        <li>{{item.name}}</li>
-    }
-</ul>
+<div class="row">
+  <app-card *ngFor="let product of filteredProductList; let i = index" 
+            [title]="product.name"
+            [buttonLabel]="'Add to card - ' + product.price"
+            [description]="product.description"
+            [imageSrc]="product.imageUrl"
+            [imageAlt]="product.name"
+            class="col-12 col-md-6 col-lg-4 my-2">
+  </app-card>
+</div>

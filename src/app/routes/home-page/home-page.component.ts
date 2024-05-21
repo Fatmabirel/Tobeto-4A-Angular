@@ -19,4 +19,10 @@ import { ProductCartListComponent } from '../../features/products/product-cart-l
         ProductCartListComponent
     ]
 })
-export class HomePageComponent { }
+export class HomePageComponent {
+    selectedCategoryId: number | null = null;
+  
+    onChangeCategorySelect(event: number | null) {
+      this.selectedCategoryId = event;
+    }
+  }
