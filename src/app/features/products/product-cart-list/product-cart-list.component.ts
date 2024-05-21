@@ -6,8 +6,10 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnInit,
   Output,
 } from '@angular/core';
+import { ProductsService } from '../services/products.service';
 
 @Component({
   selector: 'app-product-cart-list',
@@ -17,60 +19,30 @@ import {
   styleUrl: './product-cart-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductCartListComponent {
+export class ProductCartListComponent implements OnInit {
   @Input() filterByCategoryId: number | null = null;
   @Output() viewProduct = new EventEmitter<ProductListItem>();
-  productList: ProductListItem[] = [
-    {
-      id: 1,
-      categoryId: 1, // Beverages
-      name: 'Orange Juice',
-      price: 2.99,
-      description: 'Fresh squeezed orange juice',
-      imageUrl: 'https://via.placeholder.com/200',
-    },
-    {
-      id: 2,
-      categoryId: 1, // Beverages
-      name: 'Apple Juice',
-      price: 2.99,
-      description: 'Fresh squeezed apple juice',
-      imageUrl: 'https://via.placeholder.com/200',
-    },
-    {
-      id: 3,
-      categoryId: 2, // Canned Goods
-      name: 'Tomato Soup',
-      price: 1.99,
-      description: 'Classic tomato soup',
-      imageUrl: 'https://via.placeholder.com/200',
-    },
-    {
-      id: 4,
-      categoryId: 3, // Dairy
-      name: 'Milk',
-      price: 5,
-      description: 'Whole milk',
-      imageUrl: 'https://via.placeholder.com/200',
-    },
-    {
-      id: 5,
-      categoryId: 4, // Frozen Foods
-      name: 'Frozen Pizza',
-      price: 10,
-      description: 'Pepperoni pizza',
-      imageUrl: 'https://via.placeholder.com/200',
-    },
-    {
-      id: 6,
-      categoryId: 5, // Meat
-      name: 'Ground Beef',
-      price: 8,
-      description: 'Ground beef',
-      imageUrl: 'https://via.placeholder.com/200',
-    },
-  ]; // Mock Data
 
+  productList!: ProductListItem[];
+
+
+  constructor(private productsService: ProductsService) {}
+
+  ngOnInit(): void {
+    this.getProductList();
+  }
+
+  getProductList() {
+    const request = this.productsService.getList().subscribe((productList) => {
+      this.productList = productList;
+      request.unsubscribe();
+    });
+  }
+
+  onViewProduct(product: ProductListItem) {
+    this.viewProduct.emit(product);
+  }
+  
   get filteredProductList(): ProductListItem[] {
     let filteredProductList = this.productList;
 
@@ -82,7 +54,5 @@ export class ProductCartListComponent {
 
     return filteredProductList;
   }
-  onViewProduct(product: ProductListItem) {
-    this.viewProduct.emit(product);
-  }
+  
 }
