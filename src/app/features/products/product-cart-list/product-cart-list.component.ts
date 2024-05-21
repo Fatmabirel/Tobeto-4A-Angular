@@ -1,20 +1,25 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ProductListItem } from '../models/product-list-item';
 import { CardComponent } from '../../../shared/components/card/card.component';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 
 @Component({
   selector: 'app-product-cart-list',
   standalone: true,
-  imports: [
-    CommonModule, CardComponent
-  ],
+  imports: [CommonModule, CardComponent],
   templateUrl: './product-cart-list.component.html',
   styleUrl: './product-cart-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductCartListComponent { 
+export class ProductCartListComponent {
   @Input() filterByCategoryId: number | null = null;
+  @Output() viewProduct = new EventEmitter<ProductListItem>();
   productList: ProductListItem[] = [
     {
       id: 1,
@@ -76,5 +81,8 @@ export class ProductCartListComponent {
     }
 
     return filteredProductList;
+  }
+  onViewProduct(product: ProductListItem) {
+    this.viewProduct.emit(product);
   }
 }
