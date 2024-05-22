@@ -1,15 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { ProductListItem } from '../models/product-list-item';
-import { CardComponent } from '../../../shared/components/card/card.component';
+import { ProductListItem } from '../../models/product-list-item';
+import { CardComponent } from '../../../../shared/components/card/card.component';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
   OnInit,
   Output,
 } from '@angular/core';
-import { ProductsService } from '../services/products.service';
+import { ProductsService } from '../../services/products.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-product-cart-list',
@@ -25,24 +27,29 @@ export class ProductCartListComponent implements OnInit {
 
   productList!: ProductListItem[];
 
-
-  constructor(private productsService: ProductsService) {}
+  constructor(
+    private productsService: ProductsService,
+    private change: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.getProductList();
   }
 
   getProductList() {
-    const request = this.productsService.getList().subscribe((productList) => {
-      this.productList = productList;
-      request.unsubscribe();
-    });
+    this.productsService
+      .getList()
+      .pipe(take(1))
+      .subscribe((productList) => {
+        this.productList = productList;
+        this.change.markForCheck();
+      });
   }
 
   onViewProduct(product: ProductListItem) {
     this.viewProduct.emit(product);
   }
-  
+
   get filteredProductList(): ProductListItem[] {
     let filteredProductList = this.productList;
 
@@ -54,5 +61,4 @@ export class ProductCartListComponent implements OnInit {
 
     return filteredProductList;
   }
-  
 }

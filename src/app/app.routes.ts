@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { HomePageComponent } from './routes/home-page/home-page.component';
 import { authRoutes } from './routes/auth/auth.routes';
 import { productsRoutes } from './routes/products/products.routes';
+import { categoriesRoutes } from './routes/categories/categories.routes';
 
 export const routes: Routes = [
   {
@@ -14,4 +15,6 @@ export const routes: Routes = [
   // ... spread operator ile bir array içindeki tüm elemanlarını tek tek ilgili yere yerleştirir..
 
   ...productsRoutes,
+
+  ...categoriesRoutes
 ];

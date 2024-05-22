@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { BasicLayoutComponent } from '../../shared/components/basic-layout/basic-layout.component';
 import { CategoryListGroupComponent } from '../../features/categories/components/category-list-group/category-list-group.component';
-import { ProductCartListComponent } from '../../features/products/product-cart-list/product-cart-list.component';
+import { ProductCartListComponent } from '../../features/products/components/product-cart-list/product-cart-list.component';
 import { ProductListItem } from '../../features/products/models/product-list-item';
 
 @Component({
