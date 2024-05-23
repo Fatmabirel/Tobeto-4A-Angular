@@ -5,6 +5,7 @@ import { BasicLayoutComponent } from '../../shared/components/basic-layout/basic
 import { CategoryListGroupComponent } from '../../features/categories/components/category-list-group/category-list-group.component';
 import { ProductCartListComponent } from '../../features/products/components/product-cart-list/product-cart-list.component';
 import { ProductListItem } from '../../features/products/models/product-list-item';
+import { SharedModule } from '../../shared/shared.module';
 
 @Component({
   selector: 'app-home-page',
@@ -13,9 +14,8 @@ import { ProductListItem } from '../../features/products/models/product-list-ite
   styleUrl: './home-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
     RouterModule,
-    BasicLayoutComponent,
+    SharedModule,
     CategoryListGroupComponent,
     ProductCartListComponent,
   
