@@ -9,7 +9,7 @@
   </div>
 
   <div class="col">
-    <h2>{{ product.name }}</h2>
+    <h2>{{ product.name}}</h2>
     <p><strong>Quantity Per Unit:</strong> {{ product.quantityPerUnit }}</p>
 
     <p><strong>Units In Stock:</strong> {{ product.unitsInStock }}</p>
@@ -17,7 +17,7 @@
     <p appHighlight="yellow" labelText="On Sale!" class="display-6">
       {{ product.unitPrice | appVat | currency }}
     </p>
-    <button class="btn btn-primary" (click)="onAddToCard()">Add to Cart</button>
+    <button appButton class="btn btn-primary" (click)="onAddToCard()">Add to Cart</button>
   </div>
 </div>
 } @else {

@@ -1,12 +1,18 @@
-
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+} from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { ProductDetail } from '../../models/product-detail';
 import { PlaceholderComponent } from '../../../../shared/components/placeholder/placeholder.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { VatPipe } from '../../pipes/vat.pipe';
 import { HighlightDirective } from '../../directives/highlight.directive';
+import { AppButtonDirective } from '../../directives/appButton.directive';
+
 
 @Component({
   selector: 'app-product-details',
@@ -16,14 +22,15 @@ import { HighlightDirective } from '../../directives/highlight.directive';
     PlaceholderComponent,
     ButtonComponent,
     VatPipe,
-    HighlightDirective
+    AppButtonDirective,
+    HighlightDirective,
   ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductDetailsComponent { 
-  @Input() id!: number; // OnPush ile değişikliklerin algılanması için Input değeri değişmesi gerekir. (1. Olay)
+export class ProductDetailsComponent {
+  @Input() id!: number;
   product!: ProductDetail;
 
   constructor(
@@ -31,7 +38,6 @@ export class ProductDetailsComponent {
     private change: ChangeDetectorRef
   ) {}
 
-  // Lifecycle metotlarında değişikliklerin algılanması için değişikliklerin kontrol edilmesi gerekir. (4. Olay)
   ngOnInit(): void {
     this.getDetails();
   }
@@ -39,11 +45,9 @@ export class ProductDetailsComponent {
   getDetails() {
     this.productsService.getById(this.id).subscribe((product) => {
       this.product = product;
-
-      this.change.markForCheck(); // OnPush ile değişikliklerin algılanması için değişikliklerin kontrol edilmesi gerekir. (2. Olay)
+      this.change.markForCheck();
     });
   }
 
-  // Kullanıcı herhangi bir olay oluşturduğunda OnPush ile değişikliklerin algılanması için değişikliklerin kontrol edilmesi gerekir. (3. Olay)
   onAddToCard() {}
 }
