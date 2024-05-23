@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { NewCategory } from '../../models/new-category';
+import { FormControlErrorMessagePipe } from '../../pipes/formControlErrorMessage.pipe';
 
 @Component({
   selector: 'app-new-category-form',
@@ -15,6 +16,7 @@ import { NewCategory } from '../../models/new-category';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormControlErrorMessagePipe
   ],
   templateUrl: './new-category-form.component.html',
   styleUrl: './new-category-form.component.scss',
