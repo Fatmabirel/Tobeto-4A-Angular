@@ -10,6 +10,7 @@ import {
 import { NewCategory } from '../../models/new-category';
 import { FormControlErrorMessagePipe } from '../../pipes/formControlErrorMessage.pipe';
 import { AppNoCharacterInputDirective } from '../../directives/appNoCharacterInput.directive';
+import { AppMultipleDirective } from '../../../products/directives/appMultiple.directive';
 
 @Component({
   selector: 'app-new-category-form',
@@ -18,7 +19,8 @@ import { AppNoCharacterInputDirective } from '../../directives/appNoCharacterInp
     CommonModule,
     ReactiveFormsModule,
     FormControlErrorMessagePipe,
-    AppNoCharacterInputDirective
+    AppNoCharacterInputDirective,
+    AppMultipleDirective
   ],
   templateUrl: './new-category-form.component.html',
   styleUrl: './new-category-form.component.scss',
