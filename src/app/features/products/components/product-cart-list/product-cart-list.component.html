@@ -1,8 +1,8 @@
 <div class="row">
   <app-card
     *ngFor="let product of filteredProductList; let i = index"
-    [title]="product.name"
-    [buttonLabel]="'View - ' + (product.unitPrice | currency)"
+    [title]="product.name | uppercase"
+    [buttonLabel]="'View - ' + (product.unitPrice | appVat : 19 | currency)"
     (buttonClick)="onViewProduct(product)"
     [description]="product.quantityPerUnit"
     imageSrc="https://via.placeholder.com/200"

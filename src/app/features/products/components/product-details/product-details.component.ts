@@ -5,6 +5,8 @@ import { ProductsService } from '../../services/products.service';
 import { ProductDetail } from '../../models/product-detail';
 import { PlaceholderComponent } from '../../../../shared/components/placeholder/placeholder.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { VatPipe } from '../../pipes/vat.pipe';
+import { HighlightDirective } from '../../directives/highlight.directive';
 
 @Component({
   selector: 'app-product-details',
@@ -12,7 +14,9 @@ import { ButtonComponent } from '../../../../shared/components/button/button.com
   imports: [
     CommonModule,
     PlaceholderComponent,
-    ButtonComponent
+    ButtonComponent,
+    VatPipe,
+    HighlightDirective
   ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss',
