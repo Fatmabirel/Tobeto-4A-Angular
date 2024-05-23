@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { NewCategory } from '../../models/new-category';
 import { FormControlErrorMessagePipe } from '../../pipes/formControlErrorMessage.pipe';
+import { AppNoCharacterInputDirective } from '../../directives/appNoCharacterInput.directive';
 
 @Component({
   selector: 'app-new-category-form',
@@ -16,7 +17,8 @@ import { FormControlErrorMessagePipe } from '../../pipes/formControlErrorMessage
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FormControlErrorMessagePipe
+    FormControlErrorMessagePipe,
+    AppNoCharacterInputDirective
   ],
   templateUrl: './new-category-form.component.html',
   styleUrl: './new-category-form.component.scss',

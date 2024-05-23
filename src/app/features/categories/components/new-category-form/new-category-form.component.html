@@ -6,7 +6,7 @@
     <!-- <input id="nameInput" type="text" class="ms-2" [(ngModel)]="nameInput" /> -->
 
     <!-- ReactiveFormsModule -->
-    <input id="nameInput" type="text" formControlName="name" class="ms-2" />
+    <input appAppNoCharacterInput id="nameInput" type="text" formControlName="name" class="ms-2" />
     <div class="error-message" *ngIf="newCategoryFormGroup.get('name')?.errors">
       {{ newCategoryFormGroup.get("name") | appFormControlErrorMessage }}
     </div>
