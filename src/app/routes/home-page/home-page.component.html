@@ -1,8 +1,13 @@
 <app-basic-layout>
-  <div class="d-flex justify-content-center">
+  <div *appIfNot="oldUser; else welcomeBack" class="d-flex justify-content-center">
     <p>welcome!</p>
     <small>Our products are fresh!</small>
   </div>
+
+  <ng-template #welcomeBack>
+    <h1>Welcome back!</h1>
+    <small>Out products are still fresh!</small>
+  </ng-template>
 
   <div class="row">
     <aside class="col-3">
