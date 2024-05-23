@@ -12,6 +12,7 @@ import { ButtonComponent } from '../../../../shared/components/button/button.com
 import { VatPipe } from '../../pipes/vat.pipe';
 import { HighlightDirective } from '../../directives/highlight.directive';
 import { AppButtonDirective } from '../../directives/appButton.directive';
+import { AppWelcomeDirective } from '../../directives/appWelcome.directive';
 
 
 @Component({
@@ -24,6 +25,7 @@ import { AppButtonDirective } from '../../directives/appButton.directive';
     VatPipe,
     AppButtonDirective,
     HighlightDirective,
+    AppWelcomeDirective
   ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss',
