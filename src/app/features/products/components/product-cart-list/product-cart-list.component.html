@@ -1,3 +1,4 @@
+@if(productList){
 <div class="row">
   <app-card
     *ngFor="let product of productList.items; let i = index"
@@ -10,9 +11,10 @@
   >
   </app-card>
   <app-pagination
-  [page]="productList.pageIndex"
+    [page]="productList.pageIndex"
     [pageSize]="productList.pageSize"
     [totalItemCount]="productList.totalItems"
-  (pageChange)="onPageChange($event)"
-></app-pagination>
+    (pageChange)="onPageChange($event)"
+  ></app-pagination>
 </div>
+}

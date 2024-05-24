@@ -16,23 +16,26 @@ export class ProductsService {
 
   getList(
     page: number,
-    pageSize: number = 10
+    pageSize: number = 10,
+    filters?: { categoryId?: number }
   ): Observable<PaginatedList<ProductListItem>> {
+    const queryParams: any = {};
+    if (filters?.categoryId) queryParams.categoryId = filters.categoryId;
     return this.http
-    .get<ProductListItem[]>(this.apiControllerUrl, {}) .pipe(
-      map((response) => {
-        // Backend'de bu model yapısının desteğinin henüz eklenmediğini varsayarak frontend tarafında geçici olarak ele aldık.
-        const paginatedList: PaginatedList<ProductListItem> = {
-          pageIndex: page,
-          pageSize,
-          totalItems: response.length,
-          items: response.slice(pageSize * (page - 1), pageSize * page),
-        };
-        return paginatedList;
-      }),
-      this.setImageToPlaceHolder()
-    ) as Observable<PaginatedList<ProductListItem>>;
-      
+      .get<ProductListItem[]>(this.apiControllerUrl, { params: queryParams })
+      .pipe(
+        map((response) => {
+          // Backend'de bu model yapısının desteğinin henüz eklenmediğini varsayarak frontend tarafında geçici olarak ele aldık.
+          const paginatedList: PaginatedList<ProductListItem> = {
+            pageIndex: page,
+            pageSize,
+            totalItems: response.length,
+            items: response.slice(pageSize * (page - 1), pageSize * page),
+          };
+          return paginatedList;
+        }),
+        this.setImageToPlaceHolder()
+      ) as Observable<PaginatedList<ProductListItem>>;
   }
 
   getById(id: number): Observable<ProductDetail> {
@@ -48,9 +51,9 @@ export class ProductsService {
           response as PaginatedList<ProductListItem>
         ).items)
           productListItem.imageUrl = 'https://via.placeholder.com/500';
-          else
-          (response as ProductDetail).imageUrl =
-            'https://via.placeholder.com/500';
+      else
+        (response as ProductDetail).imageUrl =
+          'https://via.placeholder.com/500';
 
       return response;
     });

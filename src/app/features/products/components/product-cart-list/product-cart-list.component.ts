@@ -7,8 +7,10 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { take } from 'rxjs';
@@ -24,7 +26,7 @@ import { PaginatedList } from '../../../../../core/models/paginated-list';
   styleUrl: './product-cart-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductCartListComponent implements OnInit {
+export class ProductCartListComponent implements OnInit,OnChanges  {
   @Input() filterByCategoryId: number | null = null;
   @Output() viewProduct = new EventEmitter<ProductListItem>();
 
@@ -40,9 +42,20 @@ export class ProductCartListComponent implements OnInit {
     this.getProductList();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (
+      changes['filterByCategoryId'] &&
+      changes['filterByCategoryId'].currentValue !==
+        changes['filterByCategoryId'].previousValue
+    )
+      this.getProductList();
+  }
+
   getProductList(page: number = 1) {
     this.productsService
-      .getList(page, this.pageSize)
+      .getList(page, this.pageSize, {
+        categoryId: this.filterByCategoryId || undefined,
+      })
       .pipe(take(1))
       .subscribe((productList) => {
         this.productList = productList;
