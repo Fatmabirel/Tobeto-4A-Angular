@@ -14,6 +14,7 @@ import { ProductsService } from '../../services/products.service';
 import { take } from 'rxjs';
 import { VatPipe } from '../../pipes/vat.pipe';
 import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
+import { PaginatedList } from '../../../../../core/models/paginated-list';
 
 @Component({
   selector: 'app-product-cart-list',
@@ -27,8 +28,7 @@ export class ProductCartListComponent implements OnInit {
   @Input() filterByCategoryId: number | null = null;
   @Output() viewProduct = new EventEmitter<ProductListItem>();
 
-  productList!: ProductListItem[];
-  page: number = 1;
+  productList!: PaginatedList<ProductListItem>;
   readonly pageSize: number = 12;
 
   constructor(
@@ -40,9 +40,9 @@ export class ProductCartListComponent implements OnInit {
     this.getProductList();
   }
 
-  getProductList() {
+  getProductList(page: number = 1) {
     this.productsService
-      .getList(this.page, this.pageSize)
+      .getList(page, this.pageSize)
       .pipe(take(1))
       .subscribe((productList) => {
         this.productList = productList;
@@ -51,23 +51,11 @@ export class ProductCartListComponent implements OnInit {
   }
 
   onPageChange(newPage: number) {
-    this.page = newPage;
-    this.getProductList();
+    this.getProductList(newPage);
   }
 
   onViewProduct(product: ProductListItem) {
     this.viewProduct.emit(product);
   }
 
-  get filteredProductList(): ProductListItem[] {
-    let filteredProductList = this.productList;
-
-    if (this.filterByCategoryId) {
-      filteredProductList = this.productList.filter(
-        (product) => product.categoryId === this.filterByCategoryId
-      );
-    }
-
-    return filteredProductList;
-  }
 }

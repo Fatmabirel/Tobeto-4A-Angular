@@ -1,6 +1,6 @@
 <div class="row">
   <app-card
-    *ngFor="let product of filteredProductList; let i = index"
+    *ngFor="let product of productList.items; let i = index"
     [title]="product.name | uppercase"
     [buttonLabel]="'View - ' + (product.unitPrice | appVat : 19 | currency)"
     (buttonClick)="onViewProduct(product)"
@@ -10,9 +10,9 @@
   >
   </app-card>
   <app-pagination
-  [page]="page"
-  [pageSize]="pageSize"
-  [totalItemCount]="30"
+  [page]="productList.pageIndex"
+    [pageSize]="productList.pageSize"
+    [totalItemCount]="productList.totalItems"
   (pageChange)="onPageChange($event)"
 ></app-pagination>
 </div>
