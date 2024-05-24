@@ -55,12 +55,12 @@ export class HomePageComponent {
     }, 5000);
   }
   getProductFiltersFromRoute() {
-    this.route.queryParams
-      .subscribe((queryParams) => {
-        const categoryId = queryParams['categoryId'];
-        if (categoryId) this.selectedCategoryId = Number(categoryId);
-      })
-      .unsubscribe();
+    this.route.queryParams.subscribe((queryParams) => {
+      const categoryId = queryParams['categoryId'];
+      if (categoryId) this.selectedCategoryId = Number(categoryId);
+      else this.selectedCategoryId = null;
+      this.change.markForCheck();
+    });
   }
 
   onViewProduct(product: ProductListItem) {
