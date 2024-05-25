@@ -1,5 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+} from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { BasicLayoutComponent } from '../../shared/components/basic-layout/basic-layout.component';
 import { CategoryListGroupComponent } from '../../features/categories/components/category-list-group/category-list-group.component';
@@ -7,6 +11,7 @@ import { ProductCartListComponent } from '../../features/products/components/pro
 import { ProductListItem } from '../../features/products/models/product-list-item';
 import { SharedModule } from '../../shared/shared.module';
 import { IfNotDirective } from '../../features/products/directives/if-not.pipe';
+import { LocalStorageService } from '../browser/services/local-storage';
 
 @Component({
   selector: 'app-home-page',
@@ -20,14 +25,18 @@ import { IfNotDirective } from '../../features/products/directives/if-not.pipe';
     CategoryListGroupComponent,
     ProductCartListComponent,
     IfNotDirective,
-  
   ],
 })
 export class HomePageComponent {
   selectedCategoryId: number | null = null;
   oldUser: boolean = false;
 
-  constructor(private router: Router, private route: ActivatedRoute, private change:ChangeDetectorRef) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private change: ChangeDetectorRef,
+    private localStorageService: LocalStorageService
+  ) {}
 
   onChangeCategorySelect(event: number | null) {
     this.selectedCategoryId = event;
@@ -37,16 +46,15 @@ export class HomePageComponent {
     });
   }
 
-
   ngOnInit(): void {
     this.getProductFiltersFromRoute();
     this.detectOldUser();
   }
 
   detectOldUser() {
-    const isOldUser = Boolean(localStorage.getItem('isOldUser'));
+    const isOldUser = this.localStorageService.get<boolean>('isOldUser');
     if (!isOldUser) {
-      localStorage.setItem('isOldUser', 'true');
+      this.localStorageService.set('isOldUser', 'true');
       return;
     }
     setTimeout(() => {
