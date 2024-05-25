@@ -28,6 +28,7 @@ import { LocalStorageService } from '../browser/services/local-storage';
   ],
 })
 export class HomePageComponent {
+  now = new Date();
   selectedCategoryId: number | null = null;
   oldUser: boolean = false;
 
